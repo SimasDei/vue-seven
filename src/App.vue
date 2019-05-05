@@ -1,16 +1,5 @@
 <template>
   <v-app dark>
-    <v-toolbar class="primary">
-      <v-toolbar-side-icon @click="sideNav = !sideNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
-      <v-toolbar-title>DevMeetup</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-only" v-for="item in menuItems" :key="item.title">
-        <v-btn flat>
-          <v-icon left>{{item.icon}}</v-icon>
-          {{item.title}}
-        </v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
     <v-navigation-drawer v-model="sideNav">
       <v-list>
         <v-list-tile v-for="item in menuItems" :key="item.title">
@@ -21,6 +10,17 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
+    <v-toolbar class="primary" app>
+      <v-toolbar-side-icon @click="sideNav = !sideNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
+      <v-toolbar-title>DevMeetup</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-xs-only" v-for="item in menuItems" :key="item.title">
+        <v-btn flat>
+          <v-icon left>{{item.icon}}</v-icon>
+          {{item.title}}
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
     <main>
       <router-view></router-view>
     </main>
@@ -44,3 +44,8 @@ export default {
   }
 };
 </script>
+<style>
+html {
+  overflow-y: auto;
+}
+</style>

@@ -20,5 +20,30 @@ export default new Router({
       name: 'home',
       component: Home,
     },
+    {
+      path: '/meetups',
+      name: 'Meetups',
+      component: Meetups,
+    },
+    {
+      path: '/meetup/new',
+      name: 'CreateMeetup',
+      component: CreateMeetup,
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
+    },
+    {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp,
+    },
+    {
+      path: '/signin',
+      name: 'SignIn',
+      component: SignIn,
+    },
   ],
 });
