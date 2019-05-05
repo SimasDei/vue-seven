@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Home Page</p>
+    <p>Meetups Page</p>
   </div>
 </template>
 <script>

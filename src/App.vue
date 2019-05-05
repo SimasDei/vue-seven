@@ -21,7 +21,9 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <main></main>
+    <main>
+      <router-view></router-view>
+    </main>
   </v-app>
 </template>
 
