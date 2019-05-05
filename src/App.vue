@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-toolbar>
+    <v-toolbar class="primary">
       <v-toolbar-side-icon @click="sideNav = !sideNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
       <v-toolbar-title>DevMeetup</v-toolbar-title>
       <v-spacer></v-spacer>
