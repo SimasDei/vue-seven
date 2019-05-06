@@ -51,15 +51,29 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-text-field
+              <v-textarea
                 name="description"
                 v-model="description"
                 label="Description"
                 id="description"
                 required
-                multi-line
               >
-              </v-text-field>
+              </v-textarea>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <h4>Choose Date and Time</h4>
+            </v-flex>
+          </v-layout>
+          <v-layout row class="mb-2">
+            <v-flex xs12 sm6 offset-sm3>
+              <v-date-picker v-model="date"></v-date-picker>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-time-picker v-model="time"></v-time-picker>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -75,14 +89,22 @@
   </v-container>
 </template>
 <script>
+import Moment from "moment";
 export default {
   data() {
     return {
       title: "",
       location: "",
       imageUrl: "",
-      description: ""
+      description: "",
+      date: "",
+      time: ""
     };
+  },
+  created: function() {
+    const dateTime = Moment();
+    this.date = dateTime.format("YYYY-MM-DD");
+    this.time = dateTime.format("HH:mm");
   },
   computed: {
     formIsValid() {
@@ -92,6 +114,10 @@ export default {
         this.imageUrl !== "" &&
         this.description !== ""
       );
+    },
+    parsedDateTime() {
+      const date = `${this.date}T${this.time}`;
+      return date;
     }
   },
   methods: {
@@ -102,7 +128,7 @@ export default {
         location: this.location,
         imageUrl: this.imageUrl,
         description: this.description,
-        date: new Date()
+        date: this.parsedDateTime
       };
       this.$store.dispatch("createMeetup", meetupData);
       this.$router.push("/meetups");
