@@ -6,9 +6,12 @@ import colors from 'vuetify/es5/util/colors';
 Vue.use(Vuetify, {
   iconfont: 'md',
   theme: {
-    primary: colors.pink.lighten4,
-    secondary: colors.grey.darken1,
-    accent: colors.shades.black,
-    error: colors.red.accent3,
+    primary: colors.pink.base,
+    secondary: colors.blueGrey.base,
+    accent: colors.purple.base,
+    error: colors.red.base,
+    warning: colors.deepOrange.base,
+    info: colors.cyan.base,
+    success: colors.lightGreen.base,
   },
 });
