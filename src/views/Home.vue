@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <section id="home" class="home">
     <p>Home Page</p>
-  </div>
+  </section>
 </template>
 <script>
 export default {};
 </script>
+<style>
+</style>
