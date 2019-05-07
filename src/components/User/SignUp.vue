@@ -68,6 +68,9 @@ export default {
       confirmPassword: ""
     };
   },
+  created() {
+    this.$store.dispatch("clearError");
+  },
   computed: {
     comparePasswords() {
       return this.password !== this.confirmPassword
