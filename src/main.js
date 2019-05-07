@@ -27,5 +27,21 @@ new Vue({
       appId: '1:189767313248:web:a0570087f1b093fd',
     });
     this.$store.dispatch('loadMeetups');
+    let request, db, tx, store, index;
+
+    request = window.indexedDB.open('firebaseLocalStorageDb', 1);
+
+    request.onerror = function(e) {
+      console.log(e.target.errorCode);
+    };
+    request.onsuccess = function(e) {
+      db = request.result;
+      tx = db.transaction('firebaseLocalStorage', 'readwrite');
+      store = tx.objectStore('firebaseLocalStorage');
+      let auth = store.get(0);
+      auth.onsuccess = function(e) {
+        console.log(auth.result);
+      };
+    };
   },
 }).$mount('#app');
