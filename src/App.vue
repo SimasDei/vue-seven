@@ -2,11 +2,7 @@
   <v-app dark>
     <v-navigation-drawer v-model="sideNav" absolute temporary>
       <v-list>
-        <v-list-tile
-          v-for="item in menuItems"
-          :key="item.title"
-          :to="item.link"
-        >
+        <v-list-tile v-for="item in menuItems" :key="item.title" :to="item.link">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -15,10 +11,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar class="primary" app>
-      <v-toolbar-side-icon
-        @click="sideNav = !sideNav"
-        class="hidden-sm-and-up"
-      ></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="sideNav = !sideNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
       <router-link to="/" tag="span" style="cursor:pointer">
         <v-toolbar-title>DevMeetup</v-toolbar-title>
       </router-link>
@@ -41,15 +34,34 @@ export default {
   name: "App",
   data() {
     return {
-      sideNav: false,
-      menuItems: [
-        { icon: "supervisor_account", title: "View Meetups", link: "/meetups" },
-        { icon: "room", title: "Organize Meetup", link: "/meetup/new" },
-        { icon: "person", title: "Profile", link: "/profile" },
+      sideNav: false
+    };
+  },
+  computed: {
+    menuItems() {
+      let menuItems = [
         { icon: "face", title: "Sign up", link: "/signup" },
         { icon: "lock_open", title: "Sign in", link: "/signin" }
-      ]
-    };
+      ];
+      if (this.userIsAuthenticated) {
+        menuItems = [
+          {
+            icon: "supervisor_account",
+            title: "View Meetups",
+            link: "/meetups"
+          },
+          { icon: "room", title: "Organize Meetup", link: "/meetup/new" },
+          { icon: "person", title: "Profile", link: "/profile" }
+        ];
+      }
+      return menuItems;
+    },
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    }
   }
 };
 </script>

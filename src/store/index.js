@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as Firebase from 'firebase';
 
 Vue.use(Vuex);
 
@@ -31,14 +32,14 @@ export const store = new Vuex.Store({
         date: '2019-05-05T12:00',
       },
     ],
-    user: {
-      id: '1',
-      registeredMeetups: ['1'],
-    },
+    user: null,
   },
   mutations: {
     createMeetup(state, payload) {
       state.loadedMeetups.push(payload);
+    },
+    setUser(state, payload) {
+      state.user = payload;
     },
   },
   actions: {
@@ -57,6 +58,30 @@ export const store = new Vuex.Store({
        */
       commit('createMeetup', meetup);
     },
+    signUserUp({ commit }, payload) {
+      Firebase.auth()
+        .createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(user => {
+          const newUser = {
+            id: user.user.uid,
+            registeredMeetups: [],
+          };
+          commit('setUser', newUser);
+        })
+        .catch(error => console.log(error));
+    },
+    signUserIn({ commit }, payload) {
+      Firebase.auth()
+        .signInWithEmailAndPassword(payload.email, payload.password)
+        .then(user => {
+          const newUser = {
+            id: user.user.uid,
+            registeredMeetups: [],
+          };
+          commit('setUser', newUser);
+        })
+        .catch(error => console.log(error));
+    },
   },
   getters: {
     loadedMeetups(state) {
@@ -71,6 +96,9 @@ export const store = new Vuex.Store({
       return meetupId => {
         return state.loadedMeetups.find(meetup => meetup.id === meetupId);
       };
+    },
+    user(state) {
+      return state.user;
     },
   },
 });
